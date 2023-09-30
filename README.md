@@ -8,12 +8,12 @@ LangPlatformAPI implentation of at.jddev0.lang:lang-interpreter for the Java Swi
 <dependency>
     <groupId>at.jddev0.lang</groupId>
     <artifactId>lang-platform-api-swing</artifactId>
-    <version>1.0.0-beta-03</version>
+    <version>1.0.0-beta-08</version>
 </dependency>
 ```
 **Gradle**
 ```groovy
-implementation 'at.jddev0.lang:lang-platform-api-swing:1.0.0-beta-03'
+implementation 'at.jddev0.lang:lang-platform-api-swing:1.0.0-beta-08'
 ```
 
 ## Build from Source
