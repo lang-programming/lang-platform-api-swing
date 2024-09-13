@@ -13,82 +13,82 @@ import java.util.Map;
 /**
  * Lang-Module<br>
  * Platform dependent code for Java Swing
- * 
+ *
  * @author JDDev0
  * @version v1.0.0
  */
 public class LangPlatformAPI implements ILangPlatformAPI {
-	public LangPlatformAPI() {}
-	
-	//File methods
-	public List<String> getLangFiles(String langPath) {
-		List<String> files = new LinkedList<>();
-		
-		String[] in = new File(langPath).list();
-		if(in != null) {
-			for(String str:in) {
-				File f = new File(langPath, str);
-				if(!f.isDirectory() && f.getName().toLowerCase().endsWith(".lang")) {
-					files.add(f.getPath());
-				}
-			}
-		}
-		
-		return files;
-	}
-	
-	public String getLangPath(String langFile) {
-		File containingFolder = new File(langFile).getParentFile();
-		if(containingFolder == null)
-			containingFolder = new File("./");
-		try {
-			return containingFolder.getCanonicalPath();
-		}catch(IOException e) {
-			return containingFolder.getAbsolutePath();
-		}
-	}
-	public String getLangFileName(String langFile) {
-		return new File(langFile).getName();
-	}
-	
-	public BufferedReader getLangReader(String langFile) throws IOException {
-		return new BufferedReader(new FileReader(new File(langFile)));
-	}
-	
-	public InputStream getInputStream(String langFile) throws IOException {
-		return new FileInputStream(new File(langFile));
-	}
-	
-	public boolean writeLangFile(File langFile, Map<String, String> translationMap, TerminalIO term) {
-		try {
-			BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(langFile), StandardCharsets.UTF_8));
-			
-			for(String langRequest:translationMap.keySet()) {
-				String value = translationMap.get(langRequest);
-				//For multiline
-				value = value.replace("\n", "\\n");
-				
-				w.write(langRequest + " = " + value);
-				w.newLine();
-			}
-			
-			w.close();
-		}catch (IOException e) {
-			term.logStackTrace(e, LangPlatformAPI.class);
-			
-			return false;
-		}
-		
-		return true;
-	}
-	
-	//Function helper methods
-	public String showInputDialog(String text) throws Exception {
-		String input = JOptionPane.showInputDialog(null, text, "Lang input", JOptionPane.PLAIN_MESSAGE);
-		
-		if(input == null)
-			return "";
-		else
-			return input;
-	}
+    public LangPlatformAPI() {}
+
+    //File methods
+    public List<String> getLangFiles(String langPath) {
+        List<String> files = new LinkedList<>();
+
+        String[] in = new File(langPath).list();
+        if(in != null) {
+            for(String str:in) {
+                File f = new File(langPath, str);
+                if(!f.isDirectory() && f.getName().toLowerCase().endsWith(".lang")) {
+                    files.add(f.getPath());
+                }
+            }
+        }
+
+        return files;
+    }
+
+    public String getLangPath(String langFile) {
+        File containingFolder = new File(langFile).getParentFile();
+        if(containingFolder == null)
+            containingFolder = new File("./");
+        try {
+            return containingFolder.getCanonicalPath();
+        }catch(IOException e) {
+            return containingFolder.getAbsolutePath();
+        }
+    }
+    public String getLangFileName(String langFile) {
+        return new File(langFile).getName();
+    }
+
+    public BufferedReader getLangReader(String langFile) throws IOException {
+        return new BufferedReader(new FileReader(new File(langFile)));
+    }
+
+    public InputStream getInputStream(String langFile) throws IOException {
+        return new FileInputStream(new File(langFile));
+    }
+
+    public boolean writeLangFile(File langFile, Map<String, String> translationMap, TerminalIO term) {
+        try {
+            BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(langFile), StandardCharsets.UTF_8));
+
+            for(String langRequest:translationMap.keySet()) {
+                String value = translationMap.get(langRequest);
+                //For multiline
+                value = value.replace("\n", "\\n");
+
+                w.write(langRequest + " = " + value);
+                w.newLine();
+            }
+
+            w.close();
+        }catch (IOException e) {
+            term.logStackTrace(e, LangPlatformAPI.class);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    //Function helper methods
+    public String showInputDialog(String text) throws Exception {
+        String input = JOptionPane.showInputDialog(null, text, "Lang input", JOptionPane.PLAIN_MESSAGE);
+
+        if(input == null)
+            return "";
+        else
+            return input;
+    }
 }
